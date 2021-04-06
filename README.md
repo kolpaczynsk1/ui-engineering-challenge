@@ -18,6 +18,9 @@ The rest of the features and solutions is considered as nice-to-see and are
 in the candidate's own hands and choice.
 ```
 
+![example](https://github.com/charactr-platform/ui-engineering-challenge/blob/main/preview.png?raw=true)
+
+
 Reference: https://quasar.dev/vue-components/select#Example--Chips-as-display-value
 
 ## Submission
