@@ -3,7 +3,7 @@
 ## The challenge
 
 ```
-Develop custom UI element - multiple choice select.
+Develop custom UI element - inline multiple choice select.
 
 Component filename: `select-multiple-tags.vue`.
 Input: array of objects (example: `input-data.json`).
