@@ -8,7 +8,9 @@ export default {
   target: 'static',
 
   alias: {
-    '@components': resolve(__dirname, './pages/@components')
+    '@components': resolve(__dirname, './pages/@components'),
+    '@styles': resolve(__dirname, './pages/@styles')
+
   },
 
   // Global page headers: https://go.nuxtjs.dev/config-head

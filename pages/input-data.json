@@ -1,0 +1,86 @@
+[
+  {
+  "id": "df66a8a8-4edd-4820-8446-a13f89acb49f",
+  "tag": "ANIMAL_STORY",
+  "category": [
+  "ANIMAL"
+  ],
+  "unique": true,
+  "values": []
+  },
+  {
+  "id": "43b6efe7-838e-486e-ab87-72d3154c7436",
+  "tag": "SCENERY_STORY",
+  "category": [
+  "LANDSCAPE",
+  "GPE",
+  "VEHICLE"
+  ],
+  "unique": false,
+  "values": []
+  },
+  {
+  "id": "38126575-4167-424d-8562-c8b711b6fa36",
+  "tag": "USER_NAME",
+  "category": [
+  "PERSON"
+  ],
+  "unique": true,
+  "values": []
+  },
+  {
+  "id": "aee53492-19cc-4604-8d75-8404421cdaf7",
+  "tag": "CHILDREN_NAME",
+  "category": [
+  "PERSON"
+  ],
+  "unique": false,
+  "values": []
+  },
+  {
+  "id": "44d16f98-1e36-494c-b814-ef1ac8cabbdf",
+  "tag": "PIGS_CHARACTER",
+  "category": [
+  "PERSON"
+  ],
+  "unique": true,
+  "values": [
+  "Piper",
+  "Peter",
+  "Penelope",
+  "smallest pig",
+  "mid pig",
+  "oldest pig",
+  "Bird",
+  "narrator",
+  "Wolf",
+  "big bad Wolf",
+  "Fox",
+  "bird narrator",
+  "fox assistant",
+  "assistant",
+  "pig"
+  ]
+  },
+  {
+  "id": "57ede57e-d4fa-446a-93a7-5b389e049693",
+  "tag": "GIFT",
+  "category": [
+  "PRODUCT"
+  ],
+  "unique": false,
+  "values": []
+  },
+  {
+  "id": "5c3623f1-54f5-4076-9ea9-551cd8d5fc8f",
+  "tag": "TEST",
+  "category": [
+  "testing"
+  ],
+  "unique": true,
+  "values": [
+  "skakuj",
+  "mnie"
+  ]
+  }
+  ]

@@ -4,26 +4,29 @@
 </template>
 
 <script>
-
-import CharactrInput from '@components/select-multiple-tags.vue';
+import CharactrInput from "@components/select-multiple-tags.vue";
 
 export default {
   components: {
-    'selection': CharactrInput
+    selection: CharactrInput
   },
   data() {
-
     let source = []; // Fetch some slots data
 
     return {
       source
-    }
+    };
   }
-}
+};
 </script>
 
 <style lang="scss">
-.container {
+@import '@styles/colors.scss';
+
+body, html {
+  background: $brand-color-hero;
+}
+.root {
   margin: 0 auto;
   min-height: 100vh;
   display: flex;
