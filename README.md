@@ -10,7 +10,7 @@ Input: array of objects (example: `input-data.json`).
 Display: comma-separated labels displaying `tag` value as a label.
 
 Additional requirements:
-- make sure, that the data component is using is fully responsive.
+- make sure, that the data component is using is fully reactive.
 - allow adding and deleting new items in a Textarea edition manner 
  (backspace for deletion, suggestions while typing)
 
