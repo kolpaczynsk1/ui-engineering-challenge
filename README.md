@@ -3,10 +3,10 @@
 ## The challenge
 
 ```
-Develop custom UI element - multiple choice select (`select-multiple-tags.vue`).
+Develop custom UI element - multiple choice select.
 
-Input: array of objects (example: `input-data.json`)
-
+Component filename: `select-multiple-tags.vue`.
+Input: array of objects (example: `input-data.json`).
 Display: comma-separated labels displaying `tag` value as a label.
 
 Additional requirements:
