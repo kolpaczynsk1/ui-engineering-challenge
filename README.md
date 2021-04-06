@@ -11,9 +11,11 @@ Display: comma-separated labels displaying `tag` value as a label.
 
 Additional requirements:
 - make sure, that the data component is using is fully responsive.
-- allow adding and deleting new items in a Textarea edition manner (backspace for deletion, suggestions while typing)
+- allow adding and deleting new items in a Textarea edition manner 
+ (backspace for deletion, suggestions while typing)
 
-The rest of the features and solutions is considered as nice-to-see and are in the candidate's own hands and choice.
+The rest of the features and solutions is considered as nice-to-see and are 
+in the candidate's own hands and choice.
 ```
 
 Reference: https://quasar.dev/vue-components/select#Example--Chips-as-display-value
