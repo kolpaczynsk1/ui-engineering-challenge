@@ -1,4 +1,4 @@
-# charactr-ui-challenge
+# Inline multiple choice select.
 
 ## The challenge
 
