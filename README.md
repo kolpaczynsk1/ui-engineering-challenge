@@ -2,6 +2,7 @@
 
 ## The challenge
 
+```
 Develop custom UI element - multiple choice select (`select-multiple-tags.vue`).
 
 Input: array of objects (example: `input-data.json`)
@@ -13,6 +14,7 @@ Additional requirements:
 - allow adding and deleting new items in a Textarea edition manner (backspace for deletion, suggestions while typing)
 
 The rest of the features and solutions is considered as nice-to-see and are in the candidate's own hands and choice.
+```
 
 Reference: https://quasar.dev/vue-components/select#Example--Chips-as-display-value
 
