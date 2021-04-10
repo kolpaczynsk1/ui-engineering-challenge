@@ -1,15 +1,19 @@
 <template lang="pug">
-    .list
-        SelectListItem(
-            v-for="(item, key) in items"
-            :key="key"
-            :isOdd="key % 2 == 0"
-            @click.native="selectItem(item)"
-        ) {{ item.tag }}
+    .list-wrapper
+        .list(
+            v-if="items.length"
+        )
+            SelectListItem(
+                v-for="(item, key) in items"
+                :key="key"
+                :isOdd="key % 2 == 0"
+                v-show="search(item)"
+                @click.native="selectItem(item)"
+            ) {{ item.tag }}
 </template>
 
 <script>
-import { defineComponent } from '@nuxtjs/composition-api';
+import { defineComponent, ref, watchEffect } from '@nuxtjs/composition-api';
 import SelectListItem from './SelectListItem';
 
 export default defineComponent({
@@ -20,7 +24,11 @@ export default defineComponent({
     props: {
         items: {
             type: Array
-        }
+        },
+        searchTerm: {
+            type: String,
+            default: '',
+        },
     },
     emits: [
         'updateSelected'
@@ -30,16 +38,43 @@ export default defineComponent({
            emit('updateSelected', tag);
         }
 
-        return { selectItem }
+        const showResults = ref(true);
+
+        const search = (item) => {
+            const isValid = (
+                !props.searchTerm || 
+                item.tag.toLowerCase().startsWith(props.searchTerm.toLowerCase())
+            );
+
+            if(!showResults.value && isValid) 
+                showResults.value = true;
+
+            return isValid;
+        }
+
+        const suggestion = watchEffect(() => {
+            if(props.items.length)
+                emit('suggestion', (
+                    props.searchTerm
+                        ? props.items.find(item => item.tag.toLowerCase().startsWith(props.searchTerm.toLowerCase()))
+                        : null
+                ));
+        });
+
+        return { 
+            selectItem,
+            search,
+            showResults
+        }
     }
 })
 </script>
 
 <style lang="scss" scoped>
-    .list {
+    .list-wrapper {
         position: absolute;
         width: 100%;
-        max-height: 200px;
+        max-height: 220px;
         overflow-y: auto;
         user-select: none;
     }

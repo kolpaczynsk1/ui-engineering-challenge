@@ -1,5 +1,5 @@
-<template>
-  
+<template lang="pug">
+  .icon x
 </template>
 
 <script>

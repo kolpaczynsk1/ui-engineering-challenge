@@ -11,11 +11,17 @@ export default {
     selection: CharactrInput
   },
   data() {
-    let source = []; // Fetch some slots data
+    // let source = [];
 
     return {
-      source
+      source: []
     };
+  },
+  async fetch() {
+    console.log('fetch')
+    this.source = await fetch('input-data.json')
+      .then(res => res.json())
+      .catch(err => console.error(err));
   }
 };
 </script>

@@ -2,20 +2,33 @@
     .select-wrapper
         .select(
             :style="[styles, theme]"
-            @click="isExpanded = !isExpanded"
-        )   
-            .tags
+        )
+            .select__text(@click="search.focus()")
                 select-tag(
-                    v-for="(item, key) in activeTags"
-                    :key="key"
+                    v-for="(item, index) in activeTags"
+                    :key="index"
+                    @click.native="updateSelected(item)"
                 ) {{ item.tag }}
-            select-search()
-            app-icon()
+                select-search(
+                    :placeholder="placeholder"
+                    :suggestion="suggestion"
+                    @getValue="getInputValue($event)"
+                    @toggleList="isExpanded = $event"
+                    @deleteItem="deleteItem()"
+                    @updateSelected="updateSelected($event)"
+                    ref="search"
+                )
+            .select__icon
+                app-icon(
+                    @click.native="isExpanded = !isExpanded"
+                )
         .list
             select-list(
-                :items="options"
                 v-show="isExpanded"
+                :items="options"
+                :searchTerm="searchTerm"
                 @updateSelected="updateSelected($event)"
+                @suggestion="getSuggestion($event)"
             )
 </template>
 
@@ -43,7 +56,7 @@ export default defineComponent({
         },
         width: {
             type: String,
-            default: '220px'
+            default: '400px'
         },
         radius: {
             type: String,
@@ -56,34 +69,63 @@ export default defineComponent({
         multiple: {
             type: Boolean,
             default: false,
-        }
-    },
-    data() {
-        return {
-            activeTags: {}
-        }
-    },
-    methods: {
-        updateSelected(tag) {
-            if(!this.activeTags[tag.id])
-                this.$set(this.activeTags, tag.id, tag);
-            else 
-                this.$delete(this.activeTags, tag.id);
+        },
+        placeholder: {
+            type: String,
+            default: 'Szukaj...'
         }
     },
     setup(props) {
         const styles = reactive({
-            height: props.height,
-            width: props.width,
+            'min-height': props.height,
             'border-radius': props.radius,
+            width: props.width,
             background: 'white'
         });
 
+        const searchTerm = ref('');
+
+        const getInputValue = (value) => {
+            searchTerm.value = value;
+        };
+
         const isExpanded = ref(false);
+
+        const activeTags = reactive([]);
+
+        const updateSelected = (tag) => {
+            for(let [index, activeTag] of activeTags.entries())
+                if(activeTag.id === tag.id) {
+                    activeTags.splice(index, 1);
+                    return;
+                }
+
+            activeTags.push(tag);
+        }
+
+        const deleteItem = () => {
+            activeTags.pop();
+        }
+
+        let suggestion = ref({});
+
+        const getSuggestion = (item) => {
+            suggestion.value = item;
+        }
+
+        const search = ref(search);
 
         return {
             styles,
             isExpanded,
+            getInputValue,
+            searchTerm,
+            activeTags,
+            updateSelected,
+            deleteItem,
+            suggestion,
+            getSuggestion,
+            search
         }
     },
 });
@@ -94,11 +136,26 @@ export default defineComponent({
         position: relative;
 
         .select {
+            position: relative;
             display: flex;
             align-items: center;
+            flex-wrap: wrap;
+            cursor: pointer;
+
+            &__text {
+                padding: 10px;
+                width: 95%;
+                text-align: left;
+            }
 
             .tags {
                 width: fit-content;
+            }
+
+            &__icon {
+                position: absolute;
+                cursor: pointer;
+                right: 10px;
             }
         }
     }

@@ -36,5 +36,6 @@ export default defineComponent({
     .item {
         text-align: left;
         padding: 5px 10px;
+        cursor: pointer;
     }
 </style>

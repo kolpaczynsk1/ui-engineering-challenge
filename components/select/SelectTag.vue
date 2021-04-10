@@ -1,6 +1,8 @@
 <template lang="pug">
-  .item
-    slot()
+  .item-wrapper
+    .item
+        slot()
+    span ,
 </template>
 
 <script>
@@ -8,16 +10,29 @@ import { defineComponent } from "@nuxtjs/composition-api";
 
 export default defineComponent({
     name: "select-tag",
+    props: {
+        isLast: {
+            type: Boolean,
+            default: false,
+        }
+    }
 });
 </script>
 
 <style lang="scss" scoped>
-    .item {
+    .item-wrapper {
         display: inline-block;
-        width: fit-content;
-        padding: 2px 4px;
-        background: #ccc;
-        border-radius: 5px;
-        margin: 0 5px;
+
+        .item {
+            font-size: 10px;
+            display: inline-block;
+            width: fit-content;
+            padding: 2px 4px;
+            background: #ccc;
+            border-radius: 5px;
+            margin: 5px;
+            cursor: pointer;
+        }
     }
+
 </style>
