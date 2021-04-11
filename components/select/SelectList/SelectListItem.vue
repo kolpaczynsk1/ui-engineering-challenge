@@ -1,12 +1,12 @@
 <template lang="pug">
   .item(
-    :class="{ 'item--odd': isOdd, 'active': isActive }"
+    :class="{ 'item--odd': isOdd, 'active': item.active }"
     @click="toggleItem()"
   )
     p {{ item.tag }}
     app-icon(
         name="plus"
-        :class="{ 'rotate-45': isActive }"
+        :class="{ 'rotate-45': item.active }"
         @click.native="isExpanded = !isExpanded"
     )
 </template>
@@ -28,15 +28,11 @@ export default defineComponent({
         }
     },
     setup(props, { emit }) {
-        const isActive = ref(false);
-        
         const toggleItem = () => {
-            isActive.value = !isActive.value;
-            emit('updateSelected', props.item);
+            emit('updateSelected', props.item.id);
         };
 
         return {
-            isActive,
             toggleItem
         }
     }

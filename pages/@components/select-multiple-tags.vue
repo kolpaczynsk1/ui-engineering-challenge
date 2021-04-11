@@ -3,14 +3,13 @@
     .charactr-select-input-wrapper
       app-select(
         :options="value"
-        :multiple="true"
-        @active="getActive($event)"
+        @selected="getSelected($event)"
       )
 </template>
 <script>
 import { defineComponent, reactive } from '@nuxtjs/composition-api';
 import Select from '~/components/select/Select';
-import dark from '~/components/select/SelectThemes/dark';
+import light from '~/components/select/SelectThemes/light';
 import useTheme from '../../components/select/SelectComposable/useTheme';
 
 export default defineComponent({
@@ -26,16 +25,16 @@ export default defineComponent({
   setup() {
     const { createTheme } = useTheme();
 
-    const theme = createTheme(dark);
+    const theme = createTheme(light);
     let activeOptions = reactive({});
 
-    const getActive = (items) => {
+    const getSelected = (items) => {
       activeOptions = items;
     }
 
     return {
       theme,
-      getActive
+      getSelected,
     }
   }
 });

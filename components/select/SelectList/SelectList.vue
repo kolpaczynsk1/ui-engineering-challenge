@@ -40,10 +40,6 @@ export default defineComponent({
         'updateSelected'
     ],
     setup(props, { emit }) {
-        const selectItem = (tag) => {
-            emit('updateSelected', tag);
-        }
-
         const search = (item) => {
             return (
                 !props.searchTerm || 
@@ -61,7 +57,6 @@ export default defineComponent({
         });
 
         return { 
-            selectItem,
             search,
         }
     }

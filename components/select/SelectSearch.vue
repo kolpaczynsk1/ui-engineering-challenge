@@ -44,7 +44,7 @@ export default defineComponent({
             if(e.key === "Backspace" && !inputValue.value.length)
                 emit('deleteItem');
             else if(e.key === "Enter" && props.suggestion && inputValue.value.length) {
-                emit('updateSelected', props.suggestion);
+                emit('updateSelected', props.suggestion.id);
                 inputValue.value = '';
                 searchValue();
             }

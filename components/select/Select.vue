@@ -5,6 +5,7 @@
             @click="isExpanded = false"
         )
         .select-wrapper(
+            v-if="tags.length"
             :style="styles"
         )
             .select(
@@ -16,15 +17,15 @@
                     select-tag(
                         v-for="(item, index) in activeTags"
                         :key="index"
-                        @click.native="addTag(item); update()"
+                        @click.native="toggleItem(item.id);"
                     ) {{ item.tag }}
                     select-search(
                         :placeholder="placeholder"
                         :suggestion="suggestion"
                         @getValue="getInputValue($event)"
                         @toggleList="isExpanded = $event"
-                        @deleteItem="deleteTag()"
-                        @updateSelected="enterTag($event); update()"
+                        @deleteItem="popItem()"
+                        @updateSelected="toggleItem($event);"
                         ref="search"
                     )
                 .select__icon
@@ -39,9 +40,9 @@
                 )
                     select-list(
                         v-show="isExpanded"
-                        :items="options"
+                        :items="tags"
                         :searchTerm="searchTerm"
-                        @updateSelected="addTag($event); update()"
+                        @updateSelected="toggleItem($event);"
                         @suggestion="getSuggestion($event)"
                     )
 </template>
@@ -52,7 +53,6 @@ import SelectSearch from './SelectSearch';
 import SelectList from './SelectList/SelectList';
 import AppIcon from '~/components/AppIcon';
 import { defineComponent, reactive, ref } from '@nuxtjs/composition-api';
-import useTags from './SelectComposable/useTags';
 import useSearch from './SelectComposable/useSearch';
 
 export default defineComponent({
@@ -63,7 +63,8 @@ export default defineComponent({
         AppIcon
     },
     emits: [
-        'active'
+        'active',
+        'selected'
     ],
     props: {
         options: {
@@ -87,17 +88,54 @@ export default defineComponent({
             default: 'Szukaj...'
         }
     },
-    setup(props, { emit }) {
-        const { 
-            activeTags, 
-            addTag, 
-            deleteTag,
-            enterTag,
-        } = useTags();
-
-        const update = () => {
-            emit('active', activeTags);
+    data() {
+        return {
+            tags: []
         }
+    },
+    methods: {
+        toggleItem(id) {
+            for(let item of this.tags) {
+                if(item.id === id) {
+                    !item['active']
+                        ? this.$set(item, 'active', !item['active'])
+                        : this.$delete(item, 'active');
+                    return;
+                }
+            }
+        },
+        popItem() {
+            if(this.activeTags.length) {
+                this.toggleItem(
+                    this.activeTags[this.activeTags.length - 1].id
+                );
+            }
+        }
+    },
+    computed: {
+        activeTags() {
+            const value =  this.tags.filter((item) => item['active']);
+            
+            this.$emit('selected', value);
+            return value;
+        },
+    },
+    watch: {
+        options(val) {
+            this.tags = JSON.parse(JSON.stringify(val));
+        }
+    },
+    mounted() {
+        this.tags = JSON.parse(JSON.stringify(this.options));
+    },
+    setup(props) {
+        const isExpanded = ref(false);
+        const search = ref(search);
+
+        const styles = reactive({
+            'min-height': props.height,
+            'max-width': props.width,
+        });
 
         const { 
             searchTerm,
@@ -106,27 +144,14 @@ export default defineComponent({
             getSuggestion
         } = useSearch();
 
-        const styles = reactive({
-            'min-height': props.height,
-            'max-width': props.width,
-        });
-
-        const isExpanded = ref(false);
-        const search = ref(search);
-
         return {
             styles,
             isExpanded,
             getInputValue,
             searchTerm,
-            activeTags,
-            addTag,
-            deleteTag,
-            enterTag,
             suggestion,
             getSuggestion,
             search,
-            update
         }
     },
 });
