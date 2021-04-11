@@ -32,8 +32,9 @@
                     app-icon(
                         name="arrow"
                         :class="{ 'rotate-180': isExpanded }"
-                        @click.native="isExpanded = !isExpanded"
+                        @toggle="isExpanded = !isExpanded"
                     )
+                        arrow()
             .list
                 transition(
                     name="fade-in"
@@ -54,13 +55,15 @@ import SelectList from './SelectList/SelectList';
 import AppIcon from '~/components/AppIcon';
 import { defineComponent, reactive, ref } from '@nuxtjs/composition-api';
 import useSearch from './SelectComposable/useSearch';
+import Arrow from './Icons/Arrow';
 
 export default defineComponent({
     components: {
         SelectTag,
         SelectSearch,
         SelectList,
-        AppIcon
+        AppIcon,
+        Arrow
     },
     emits: [
         'active',

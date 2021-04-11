@@ -12,8 +12,8 @@
         p(
             v-if="suggestion && Object.keys(suggestion).length"
             class="suggestion"
-            :style="{ left: inputValue.length + 'ch' }"
-        ) {{ autocomplete }}
+            :style="{ left: 0 }"
+        ) {{ suggestion.tag.toLowerCase() }}
 </template>
 
 <script>
@@ -98,6 +98,7 @@ export default defineComponent({
             width: 100%;
             background: transparent;
             color: var(--select-text-primary);
+            user-select: none;
         }
 
         .suggestion {

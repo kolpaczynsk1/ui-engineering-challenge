@@ -27,6 +27,7 @@ export default {
 
 <style lang="scss">
 @import '@styles/colors.scss';
+@import '@styles/themes.scss';
 
 body, html {
   background: $brand-color-hero;

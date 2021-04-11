@@ -16,7 +16,6 @@
 <script>
 import { defineComponent, watchEffect } from '@nuxtjs/composition-api';
 import SelectListItem from './SelectListItem';
-import light from '~/components/select/SelectThemes/light';
 
 export default defineComponent({
     name: "select-list",
@@ -31,10 +30,6 @@ export default defineComponent({
             type: String,
             default: '',
         },
-        theme: {
-            type: Object,
-            default: () => light
-        }
     },
     emits: [
         'updateSelected'
