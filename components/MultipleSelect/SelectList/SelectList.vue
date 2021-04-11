@@ -8,7 +8,7 @@
                 :key="key"
                 :item="item"
                 :isOdd="key % 2 == 0"
-                v-on="$listeners"
+                @updateSelected="$emit('updateSelected', $event)"
                 v-show="search(item)"
             )
 </template>
