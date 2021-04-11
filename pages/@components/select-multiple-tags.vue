@@ -1,16 +1,33 @@
 <template lang="pug">
-  .charactr-select-input-wrapper
-    .label Hello, I'm not finished UI element, and I need some love.
+  .customize-select
+    .charactr-select-input-wrapper
+      app-select(
+        :options="value"
+        @selected="$emit('selected', $event)"
+      )
+      customize()
 </template>
 <script>
-export default {
-  
-}
+import { defineComponent } from '@nuxtjs/composition-api';
+import Select from '~/components/MultipleSelect/Select';
+import Customize from './customize';
+
+export default defineComponent({
+  name: "select-multiple-tags",
+  components: {
+    'app-select': Select,
+    Customize
+  },
+  props: {
+    value: {
+      type: Array,
+    },
+  },
+});
+
 </script>
 <style lang="scss" scoped>
-.charactr-select-input-wrapper {
-  .label {
-
+  .customize-select {
+    width: 100%;
   }
-}
 </style>

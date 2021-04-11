@@ -1,0 +1,8 @@
+:root body[data-theme=dark] {
+    --select-primary: #3297FD;
+    --select-secondary: #FF5131;
+    --select-background-primary: #212121;
+    --select-background-secondary: #484848;
+    --select-text-primary: #FFFFFF;
+    --select-text-secondary: #FFFFFF;
+}

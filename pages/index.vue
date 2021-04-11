@@ -1,6 +1,10 @@
 <template lang="pug">
   section.root
-    selection(v-model="source")
+    h1 Vue Select Demo
+    selection(
+      :value="source"
+      @selected="getSelected($event)"
+    )
 </template>
 
 <script>
@@ -11,17 +15,30 @@ export default {
     selection: CharactrInput
   },
   data() {
-    let source = []; // Fetch some slots data
+    let source = [];
+    let activeOptions = [];
 
     return {
-      source
+      source,
+      activeOptions
     };
+  },
+  async fetch() {
+    this.source = await fetch('input-data.json')
+      .then(res => res.json())
+      .catch(err => console.error(err));
+  },
+  methods: {
+    getSelected(items) {
+      this.activeOptions = items;
+    }
   }
 };
 </script>
 
 <style lang="scss">
 @import '@styles/colors.scss';
+@import '@styles/themes.scss';
 
 body, html {
   background: $brand-color-hero;
@@ -30,8 +47,13 @@ body, html {
   margin: 0 auto;
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
+
+  h1 {
+    margin: 20px 0;
+  }
 }
 </style>
