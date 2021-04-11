@@ -6,11 +6,13 @@
         @selected="getSelected($event)"
       )
       .custom
+        h2 Change theme
         input(
           type="radio"
           id="light"
           value="light"
           v-model="currentTheme"
+          @change="setTheme(currentTheme)"
         )
         label(
           for="light"
@@ -20,13 +22,14 @@
           id="dark"
           value="dark"
           v-model="currentTheme"
+          @change="setTheme(currentTheme)"
         )
         label(
           for="dark"
         ) Dark
 </template>
 <script>
-import { computed, defineComponent, reactive, ref, watch } from '@nuxtjs/composition-api';
+import { defineComponent, onMounted, reactive, ref, watch } from '@nuxtjs/composition-api';
 import Select from '~/components/select/Select';
 import useTheme from '../../components/select/SelectComposable/useTheme';
 
@@ -43,16 +46,20 @@ export default defineComponent({
   setup() {
     const { setTheme } = useTheme();
     const currentTheme = ref('light');
-    const theme = setTheme(currentTheme.value);
     let activeOptions = reactive({});
 
     const getSelected = (items) => {
       activeOptions = items;
     }
 
+    onMounted(() => {
+      setTheme(currentTheme.value)
+    })
+
     return {
       currentTheme,
       getSelected,
+      setTheme
     }
   }
 });
@@ -66,7 +73,7 @@ export default defineComponent({
       padding-top: 20px;
 
       input {
-        margin: 0 5px;
+        margin: 15px 5px;
       }
 
       label {

@@ -163,6 +163,7 @@ export default defineComponent({
 <style lang="scss" scoped>
     .select-wrapper {
         position: relative;
+        width: 90%;
         margin: 0 auto;
 
         .select {

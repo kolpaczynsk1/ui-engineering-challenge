@@ -1,5 +1,6 @@
 <template lang="pug">
   section.root
+    h1 Vue Select Demo
     selection(v-model="source")
 </template>
 
@@ -36,8 +37,13 @@ body, html {
   margin: 0 auto;
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
+
+  h1 {
+    margin: 20px 0;
+  }
 }
 </style>
