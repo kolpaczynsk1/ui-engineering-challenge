@@ -1,7 +1,7 @@
 <template lang="pug">
     .input-wrapper
         input(
-            type="search"
+            type="text"
             :placeholder="placeholder"
             v-model="inputValue"
             ref="input"
@@ -43,8 +43,11 @@ export default defineComponent({
         const onKeydown = (e) => {
             if(e.key === "Backspace" && !inputValue.value.length)
                 emit('deleteItem');
-            else if(e.key === "Enter" && Object.keys(props.suggestion).length)
+            else if(e.key === "Enter" && props.suggestion && inputValue.value.length) {
                 emit('updateSelected', props.suggestion);
+                inputValue.value = '';
+                searchValue();
+            }
         };
 
         const searchValue = () => {
@@ -62,9 +65,10 @@ export default defineComponent({
         }
 
         const autocomplete = computed(() => {
-            return (Object.keys(props.suggestion).length
-                ? props.suggestion.tag.toLowerCase().slice(inputValue.value.length)
-                : ''
+            return (
+                Object.keys(props.suggestion).length
+                    ? props.suggestion.tag.toLowerCase().slice(inputValue.value.length)
+                    : ''
             );
         });
 
@@ -92,6 +96,8 @@ export default defineComponent({
             outline: 0;
             padding: 5px 10px;
             width: 100%;
+            background: transparent;
+            color: var(--select-text-primary);
         }
 
         .suggestion {
@@ -100,9 +106,10 @@ export default defineComponent({
             left: 0;
             margin-left: 10px;
             font-size: 14px;
-            background: #ccc;
+            background: var(--select-background-secondary);
             opacity: 0.3;
             pointer-events: none;
+            color: var(--select-text-primary);
         }
     }
 </style>

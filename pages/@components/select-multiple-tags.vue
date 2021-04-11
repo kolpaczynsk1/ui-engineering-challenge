@@ -4,11 +4,14 @@
       app-select(
         :options="value"
         :multiple="true"
+        @active="getActive($event)"
       )
 </template>
 <script>
-import { defineComponent } from '@nuxtjs/composition-api';
+import { defineComponent, reactive } from '@nuxtjs/composition-api';
 import Select from '~/components/select/Select';
+import dark from '~/components/select/SelectThemes/dark';
+import useTheme from '../../components/select/SelectComposable/useTheme';
 
 export default defineComponent({
   name: "select-multiple-tags",
@@ -20,13 +23,26 @@ export default defineComponent({
       type: Array,
     },
   },
+  setup() {
+    const { createTheme } = useTheme();
+
+    const theme = createTheme(dark);
+    let activeOptions = reactive({});
+
+    const getActive = (items) => {
+      activeOptions = items;
+    }
+
+    return {
+      theme,
+      getActive
+    }
+  }
 });
 
 </script>
 <style lang="scss" scoped>
-.charactr-select-input-wrapper {
-  .label {
-
+  .customize-select {
+    width: 100%;
   }
-}
 </style>

@@ -6,15 +6,17 @@
             SelectListItem(
                 v-for="(item, key) in items"
                 :key="key"
+                :item="item"
                 :isOdd="key % 2 == 0"
+                v-on="$listeners"
                 v-show="search(item)"
-                @click.native="selectItem(item)"
-            ) {{ item.tag }}
+            )
 </template>
 
 <script>
-import { defineComponent, ref, watchEffect } from '@nuxtjs/composition-api';
+import { defineComponent, watchEffect } from '@nuxtjs/composition-api';
 import SelectListItem from './SelectListItem';
+import light from '~/components/select/SelectThemes/light';
 
 export default defineComponent({
     name: "select-list",
@@ -29,27 +31,24 @@ export default defineComponent({
             type: String,
             default: '',
         },
+        theme: {
+            type: Object,
+            default: () => light
+        }
     },
     emits: [
         'updateSelected'
     ],
     setup(props, { emit }) {
         const selectItem = (tag) => {
-           emit('updateSelected', tag);
+            emit('updateSelected', tag);
         }
 
-        const showResults = ref(true);
-
         const search = (item) => {
-            const isValid = (
+            return (
                 !props.searchTerm || 
                 item.tag.toLowerCase().startsWith(props.searchTerm.toLowerCase())
             );
-
-            if(!showResults.value && isValid) 
-                showResults.value = true;
-
-            return isValid;
         }
 
         const suggestion = watchEffect(() => {
@@ -64,7 +63,6 @@ export default defineComponent({
         return { 
             selectItem,
             search,
-            showResults
         }
     }
 })
@@ -74,8 +72,9 @@ export default defineComponent({
     .list-wrapper {
         position: absolute;
         width: 100%;
-        max-height: 220px;
+        max-height: 300px;
         overflow-y: auto;
         user-select: none;
+        border-radius: 0 0 5px 5px;
     }
 </style>
