@@ -40,16 +40,6 @@ export default defineComponent({
     setup(props, { emit }) {
         const inputValue = ref('');
 
-        const onKeydown = (e) => {
-            if(e.key === "Backspace" && !inputValue.value.length)
-                emit('deleteItem');
-            else if(e.key === "Enter" && props.suggestion && inputValue.value.length) {
-                emit('updateSelected', props.suggestion.id);
-                inputValue.value = '';
-                searchValue();
-            }
-        };
-
         const searchValue = () => {
             emit('getValue', inputValue.value);
         }
@@ -71,6 +61,16 @@ export default defineComponent({
                     : ''
             );
         });
+
+        const onKeydown = (e) => {
+            if(e.key === "Backspace" && !inputValue.value.length)
+                emit('deleteItem');
+            else if(e.key === "Enter" && props.suggestion && inputValue.value.length) {
+                emit('updateSelected', props.suggestion.id);
+                inputValue.value = '';
+                searchValue();
+            }
+        };
 
         return {
             inputValue,

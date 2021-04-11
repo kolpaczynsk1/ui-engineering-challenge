@@ -3,82 +3,31 @@
     .charactr-select-input-wrapper
       app-select(
         :options="value"
-        @selected="getSelected($event)"
+        @selected="$emit('selected', $event)"
       )
-      .custom
-        h2 Change theme
-        input(
-          type="radio"
-          id="light"
-          value="light"
-          v-model="currentTheme"
-          @change="setTheme(currentTheme)"
-        )
-        label(
-          for="light"
-        ) Light
-        input(
-          type="radio"
-          id="dark"
-          value="dark"
-          v-model="currentTheme"
-          @change="setTheme(currentTheme)"
-        )
-        label(
-          for="dark"
-        ) Dark
+      customize()
 </template>
 <script>
-import { defineComponent, onMounted, reactive, ref, watch } from '@nuxtjs/composition-api';
-import Select from '~/components/select/Select';
-import useTheme from '../../components/select/Composable/useTheme';
+import { defineComponent } from '@nuxtjs/composition-api';
+import Select from '~/components/MultipleSelect/Select';
+import Customize from './customize';
 
 export default defineComponent({
   name: "select-multiple-tags",
   components: {
-    'app-select': Select
+    'app-select': Select,
+    Customize
   },
   props: {
     value: {
       type: Array,
     },
   },
-  setup() {
-    const { setTheme } = useTheme();
-    const currentTheme = ref('light');
-    let activeOptions = reactive({});
-
-    const getSelected = (items) => {
-      activeOptions = items;
-    }
-
-    onMounted(() => {
-      setTheme(currentTheme.value)
-    })
-
-    return {
-      currentTheme,
-      getSelected,
-      setTheme
-    }
-  }
 });
 
 </script>
 <style lang="scss" scoped>
   .customize-select {
     width: 100%;
-
-    .custom {
-      padding-top: 20px;
-
-      input {
-        margin: 15px 5px;
-      }
-
-      label {
-        margin-right: 10px;
-      }
-    }
   }
 </style>

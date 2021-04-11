@@ -1,7 +1,16 @@
 <template lang="pug">
   section.root
     h1 Vue Select Demo
-    selection(v-model="source")
+    selection(
+      :value="source"
+      @selected="getSelected($event)"
+    )
+    div
+      p Active elements:
+      span(
+        v-for="(item, index) in activeOptions"
+        :key="index"
+      ) {{ item.tag }}
 </template>
 
 <script>
@@ -13,15 +22,22 @@ export default {
   },
   data() {
     let source = [];
+    let activeOptions = [];
 
     return {
-      source
+      source,
+      activeOptions
     };
   },
   async fetch() {
     this.source = await fetch('input-data.json')
       .then(res => res.json())
       .catch(err => console.error(err));
+  },
+  methods: {
+    getSelected(items) {
+      this.activeOptions = items;
+    }
   }
 };
 </script>

@@ -12,7 +12,6 @@
                 :style="{ 'border-radius': isExpanded ? `${ radius } ${ radius } 0 0 `: radius }"
             )
                 .select__text(
-                    ref="search"
                     @click="focusSearch()"
                 )
                     select-tag(
@@ -133,7 +132,7 @@ export default {
     computed: {
         activeTags() {
             const value =  this.tags.filter((item) => item['active']);
-            
+
             this.$emit('selected', value);
             return value;
         },
