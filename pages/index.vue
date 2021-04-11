@@ -5,12 +5,6 @@
       :value="source"
       @selected="getSelected($event)"
     )
-    div
-      p Active elements:
-      span(
-        v-for="(item, index) in activeOptions"
-        :key="index"
-      ) {{ item.tag }}
 </template>
 
 <script>
