@@ -31,7 +31,7 @@
 <script>
 import { defineComponent, onMounted, reactive, ref, watch } from '@nuxtjs/composition-api';
 import Select from '~/components/select/Select';
-import useTheme from '../../components/select/SelectComposable/useTheme';
+import useTheme from '../../components/select/Composable/useTheme';
 
 export default defineComponent({
   name: "select-multiple-tags",

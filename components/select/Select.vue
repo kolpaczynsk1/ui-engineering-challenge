@@ -12,7 +12,8 @@
                 :style="{ 'border-radius': isExpanded ? `${ radius } ${ radius } 0 0 `: radius }"
             )
                 .select__text(
-                    @click="search.focus()"
+                    ref="search"
+                    @click="focusSearch()"
                 )
                     select-tag(
                         v-for="(item, index) in activeTags"
@@ -53,11 +54,9 @@ import SelectTag from './SelectTag';
 import SelectSearch from './SelectSearch';
 import SelectList from './SelectList/SelectList';
 import AppIcon from '~/components/AppIcon';
-import { defineComponent, reactive, ref } from '@nuxtjs/composition-api';
-import useSearch from './SelectComposable/useSearch';
 import Arrow from './Icons/Arrow';
 
-export default defineComponent({
+export default {
     components: {
         SelectTag,
         SelectSearch,
@@ -69,6 +68,18 @@ export default defineComponent({
         'active',
         'selected'
     ],
+    data() {
+        return {
+            isExpanded: false,
+            styles: {
+                'min-height': this.height,
+                'max-width': this.width,
+            },
+            tags: [],
+            searchTerm: '',
+            suggestion: {}
+        }
+    },
     props: {
         options: {
             type: Array,
@@ -91,11 +102,6 @@ export default defineComponent({
             default: 'Szukaj...'
         }
     },
-    data() {
-        return {
-            tags: []
-        }
-    },
     methods: {
         toggleItem(id) {
             for(let item of this.tags) {
@@ -113,6 +119,15 @@ export default defineComponent({
                     this.activeTags[this.activeTags.length - 1].id
                 );
             }
+        },
+        focusSearch() {
+            this.$refs.search.focus();
+        },
+        getInputValue(value) {
+            this.searchTerm = value;
+        },
+        getSuggestion(value) {
+            this.suggestion = value;
         }
     },
     computed: {
@@ -131,33 +146,7 @@ export default defineComponent({
     mounted() {
         this.tags = JSON.parse(JSON.stringify(this.options));
     },
-    setup(props) {
-        const isExpanded = ref(false);
-        const search = ref(search);
-
-        const styles = reactive({
-            'min-height': props.height,
-            'max-width': props.width,
-        });
-
-        const { 
-            searchTerm,
-            getInputValue,
-            suggestion,
-            getSuggestion
-        } = useSearch();
-
-        return {
-            styles,
-            isExpanded,
-            getInputValue,
-            searchTerm,
-            suggestion,
-            getSuggestion,
-            search,
-        }
-    },
-});
+};
 </script>
 
 <style lang="scss" scoped>
