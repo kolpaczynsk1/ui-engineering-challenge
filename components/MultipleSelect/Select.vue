@@ -164,7 +164,7 @@ export default {
             background: var(--select-background-primary);
 
             &__text {
-                padding: 10px;
+                padding: 10px 40px 10px 10px;
                 width: 100%;
                 text-align: left;
             }
