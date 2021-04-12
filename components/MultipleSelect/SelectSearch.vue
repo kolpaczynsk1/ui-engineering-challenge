@@ -13,7 +13,7 @@
             v-if="suggestion && Object.keys(suggestion).length"
             class="suggestion"
             :style="{ left: 0 }"
-        ) {{ suggestion.tag.toLowerCase() }}
+        ) {{ autocomplete }}
 </template>
 
 <script>
@@ -55,11 +55,7 @@ export default defineComponent({
         }
 
         const autocomplete = computed(() => {
-            return (
-                Object.keys(props.suggestion).length
-                    ? props.suggestion.tag.toLowerCase().slice(inputValue.value.length)
-                    : ''
-            );
+            return props.suggestion.tag.toLowerCase();
         });
 
         const onKeydown = (e) => {
