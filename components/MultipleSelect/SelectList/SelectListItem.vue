@@ -4,11 +4,6 @@
     @click="toggleItem()"
   )
     p {{ item.tag }}
-    app-icon(
-        name="plus"
-        :class="{ 'rotate-45': item.active }"
-        @click.native="isExpanded = !isExpanded"
-    )
 </template>
 
 <script>
