@@ -28,10 +28,6 @@ export default defineComponent({
             type: Number,
             default: 14,
         },
-        color: {
-            type: String,
-            default: "#000"
-        }
     },
     setup(props, { emit }) {
         const toggle = () => {
