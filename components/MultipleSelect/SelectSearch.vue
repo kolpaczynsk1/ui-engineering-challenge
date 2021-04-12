@@ -12,7 +12,6 @@
         p(
             v-if="suggestion && Object.keys(suggestion).length"
             class="suggestion"
-            :style="{ left: 0 }"
         ) {{ autocomplete }}
 </template>
 
@@ -55,7 +54,9 @@ export default defineComponent({
         }
 
         const autocomplete = computed(() => {
-            return props.suggestion.tag.toLowerCase();
+            return (
+                props.suggestion.tag[0].toUpperCase() + props.suggestion.tag.slice(1).toLowerCase()
+            );
         });
 
         const onKeydown = (e) => {
@@ -95,12 +96,13 @@ export default defineComponent({
             background: transparent;
             color: var(--select-text-primary);
             user-select: none;
+            text-transform: capitalize;
         }
 
         .suggestion {
             position: absolute;
             top: 3px;
-            left: 0;
+            left: 1px;
             margin-left: 10px;
             font-size: 14px;
             background: var(--select-background-secondary);
