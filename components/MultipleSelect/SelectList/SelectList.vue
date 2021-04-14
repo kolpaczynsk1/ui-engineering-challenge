@@ -6,7 +6,9 @@
             SelectListItem(
                 v-for="(item, key) in items"
                 :key="key"
-                :item="item"
+                :id="item.id"
+                :active="item.active"
+                :value="item.tag"
                 :isOdd="key % 2 == 0"
                 @updateSelected="$emit('updateSelected', $event)"
                 v-show="search(item)"

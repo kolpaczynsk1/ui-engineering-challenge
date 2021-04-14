@@ -1,7 +1,6 @@
 export default function useTheme() {
-    const documentEl = document.body;
     const setTheme = (theme) => {
-        document.body.setAttribute('data-theme', decodeURI(theme));
+        document.body.setAttribute('data-theme', decodeURIComponent(theme));
     }
 
     return {

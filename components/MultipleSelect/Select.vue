@@ -133,7 +133,7 @@ export default {
         activeTags() {
             const value =  this.tags.filter((item) => item['active']);
 
-            this.$emit('selected', value);
+            this.$emit('selected', value.map(({ active, ...args }) => args));
             return value;
         },
     },

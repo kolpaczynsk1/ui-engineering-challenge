@@ -1,9 +1,9 @@
 <template lang="pug">
   .item(
-    :class="{ 'item--odd': isOdd, 'active': item.active }"
+    :class="{ 'item--odd': isOdd, 'active': active }"
     @click="toggleItem()"
   )
-    p {{ item.tag }}
+    p {{ value }}
 </template>
 
 <script>
@@ -17,14 +17,22 @@ export default defineComponent({
             type: Boolean,
             default: false,
         },
-        item: {
-            type: Object,
-            default: () => {},
+        value: {
+            type: String,
+            default: '',
+        },
+        id: {
+            type: String,
+            required: true,
+        },
+        active: {
+            type: Boolean,
+            default: false
         }
     },
     setup(props, { emit }) {
         const toggleItem = () => {
-            emit('updateSelected', props.item.id);
+            emit('updateSelected', props.id);
         };
 
         return {
