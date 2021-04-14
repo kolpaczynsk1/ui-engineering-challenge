@@ -31,7 +31,6 @@ export default {
   methods: {
     getSelected(items) {
       this.activeOptions = items;
-      console.log(items)
     }
   }
 };
